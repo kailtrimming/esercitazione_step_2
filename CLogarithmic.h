@@ -3,8 +3,8 @@
 	@author Kail Galeazzi Trimming
 */
 
-#ifndef POWER_H
-#define POWER_H
+#ifndef LOGARITHMIC_H
+#define LOGARITHMIC_H
 
 #include "CFunction.h"
 /// @class Logarithmic
