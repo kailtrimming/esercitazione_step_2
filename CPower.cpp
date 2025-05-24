@@ -1,6 +1,6 @@
 /*! @file CPower.h
 	@brief Implementation of power class
-	@author Kail Galeazzi Trimming
+	@author Mario Opisso
 */
 
 #include "CPower.h"

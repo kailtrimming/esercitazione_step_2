@@ -1,6 +1,6 @@
 /*! @file CPower.h
 	@brief A class for power functions
-	@author Kail Galeazzi Trimming
+	@author Mario Opisso
 */
 
 #ifndef POWER_H

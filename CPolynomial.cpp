@@ -1,8 +1,10 @@
-/*! @file CPolynomial.h
-	@brief class polynomial
-	@author Kail Galeazzi Trimming
+/*! @file CPolynomial.cpp
+	@brief Implementation of Polynomial class 
+	@author Mario Opisso 
 
-*/
+	Details.
+*/ 
+
 
 #include "CPolynomial.h"
 
@@ -28,6 +30,7 @@ Polynomial::~Polynomial() {
 		delete coeff;
 		coeff = NULL;
 	}
+	cout << "POLYNOMIAL -- destructor";
 }
 
 /// @brief copy constructor
@@ -50,6 +53,7 @@ Polynomial::Polynomial(const Polynomial& p) {
 		coeff[i]= p.coeff[i];
 }
 
+
 /// @brief overload operator =
 Polynomial& Polynomial::operator=(const Polynomial& p) {
     
@@ -68,6 +72,35 @@ Polynomial& Polynomial::operator=(const Polynomial& p) {
 			coeff[i]= p.coeff[i];
     }
     return *this;
+}
+
+/// @brief overload operator +
+Polynomial Polynomial::operator+(const Polynomial& p) {
+    
+	int i;
+	Polynomial newP;
+	int newSize = max(degree, p.degree) + 1;
+    
+	double* newCoeff = new double[newSize];
+	if (newCoeff == NULL) {
+		ErrorMessage("Operator +: cannot allocate memory");
+		exit(-1);
+	}
+	
+	for (i = 0; i < newSize; ++i) 
+        newCoeff[i] = 0.;
+        
+    for (i = 0; i <= degree; ++i) 
+        newCoeff[i] += coeff[i];
+        
+    for (i = 0; i <= p.degree; ++i) 
+        newCoeff[i] += p.coeff[i];
+       
+    newP= Polynomial(newCoeff, newSize);
+	
+	delete newCoeff;
+    
+    return newP;
 }
 
 /// @brief overload operator ==
@@ -92,7 +125,7 @@ bool Polynomial::operator==(const Polynomial& p) {
 ///	@param size size of the array
 void Polynomial::SetPolynomial(const double* coefficients, int size) {
 	
-	int i=0;
+	int i= 0;
 	
 	if (size < 1) {
 		ErrorMessage("SetPolynomial: the degree of the Polynomial cannot be negative");
@@ -102,33 +135,34 @@ void Polynomial::SetPolynomial(const double* coefficients, int size) {
 	if (coeff != NULL)
 		Reset();
 	
-	degree = size - 1;
-    coeff = new double[size]; // restituisce double* dove 
+	degree= size - 1;
+    coeff = new double[size];
 	if (coeff == NULL) {
 		ErrorMessage("SetPolynomial: cannot allocate memory");
 		exit(-1);
 	}
 	
-	for (i=0; i<=degree; i++)
-		coeff[i] = coefficients[i];
+	for (i=0;i<=degree;i++)
+		coeff[i]= coefficients[i];
 	
 }
 
 /// @brief returns the value of the function, given an input 
 ///	@param in the input
 ///	@return the value of the function
-double Polynomial::GetValue(double in) const {
-    int i;
-	double x = in;
-	double result = 0.0;
+double Polynomial::GetValue(double in){
         
-	result = coeff[0];
-	for (i=1; i<=degree; i++) {
-		result += coeff[i]*x;
-		x *= in;			/* x^i */
-	}
+		int i;
+		double x = in;
+		double result = 0.0;
         
-	return result;
+		result = coeff[0];
+		for (i=1; i<=degree; i++) {
+			result += coeff[i]*x;
+			x *= in;			/* x^i */
+		}
+        
+		return result;
 }
 
 /// @brief resets the polynomial 
@@ -141,12 +175,14 @@ void Polynomial::Reset() {
 	}
 }
 
+
 /// @brief writes an error message 
 /// @param string message to be printed
 void Polynomial::ErrorMessage(const char *string) {
 	
 	cout << endl << "ERROR -- Polynomial --";
 	cout << string << endl;
+
 }
 
 /// @brief writes a warning message 
@@ -155,13 +191,15 @@ void Polynomial::WarningMessage(const char *string) {
 	
 	cout << endl << "WARNING -- Polynomial --";
 	cout << string << endl;
+
 }
 
 /// @brief gives the status of the object 
 void Polynomial::Dump() {
-
 	int i;
 	
+	cout << endl;
+	cout << "---Polynomial---" << endl;
 	if (degree == -1) {
 		cout << "Uninitialized polynomial" << endl;
 		return;
@@ -176,11 +214,11 @@ void Polynomial::Dump() {
     for (i = 0; i <= degree; ++i) {
 		if (coeff[i] != 0.) {
 			cout << (coeff[i] > 0 && i > 0 ? " +" : " ") << coeff[i];
-            if (i > 0) {
-                cout << "x";
-                if (i > 1) 
-                    cout << "^" << i;
-            }
+                if (i > 0) {
+                    cout << "x";
+                    if (i > 1) 
+                        cout << "^" << i;
+                }
         }
     }
 	cout << endl;
