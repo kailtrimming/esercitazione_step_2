@@ -1,6 +1,6 @@
 /*! @file CPolynomial.h
 	@brief A class for polynomial functions 
-	@author Mario Opisso 
+	@author Kail Galeazzi Trimming
 
 	Details.
 */ 

@@ -1,6 +1,6 @@
 /*! @file CPolynomial.cpp
 	@brief Implementation of Polynomial class 
-	@author Mario Opisso 
+	@author Kail Galeazzi Trimming
 
 	Details.
 */ 

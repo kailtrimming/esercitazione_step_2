@@ -1,6 +1,6 @@
 /*! @file CLogarithmic.h
 	@brief A class for logarithmic functions
-	@author Mario Opisso
+	@author Kail Galeazzi Trimming
 */
 
 #ifndef LOGARITHMIC_H
